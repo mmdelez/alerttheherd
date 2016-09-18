@@ -25,6 +25,8 @@
 		4C0B62711D67B418008637A0 /* CreateEditTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B62701D67B418008637A0 /* CreateEditTemplateViewController.swift */; };
 		4C0B62731D67B7ED008637A0 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B62721D67B7ED008637A0 /* CreateGroupViewController.swift */; };
 		4C0B62791D6B7197008637A0 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B62771D6B7197008637A0 /* Data.xcdatamodeld */; };
+		4C306A181D70E98A00F9949C /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C306A161D70E98A00F9949C /* Person+CoreDataProperties.swift */; };
+		4C306A191D70E98A00F9949C /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C306A171D70E98A00F9949C /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		4C0B62701D67B418008637A0 /* CreateEditTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEditTemplateViewController.swift; sourceTree = "<group>"; };
 		4C0B62721D67B7ED008637A0 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		4C0B62781D6B7197008637A0 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
+		4C306A161D70E98A00F9949C /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "../Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4C306A171D70E98A00F9949C /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = ../Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 			children = (
 				4C0B62301D66D5BF008637A0 /* AppDelegate.swift */,
 				4C0B62771D6B7197008637A0 /* Data.xcdatamodeld */,
+				4C306A161D70E98A00F9949C /* Person+CoreDataProperties.swift */,
+				4C306A171D70E98A00F9949C /* Person.swift */,
 				4C0B62321D66D5BF008637A0 /* ContactsTableViewController.swift */,
 				4C0B62681D679C4F008637A0 /* TemplatesTableViewController.swift */,
 				4C0B62341D66D5BF008637A0 /* MessageViewController.swift */,
@@ -292,6 +298,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C306A191D70E98A00F9949C /* Person.swift in Sources */,
+				4C306A181D70E98A00F9949C /* Person+CoreDataProperties.swift in Sources */,
 				4C0B62611D678DCA008637A0 /* ContactsTableViewCell.swift in Sources */,
 				4C0B62711D67B418008637A0 /* CreateEditTemplateViewController.swift in Sources */,
 				4C0B62731D67B7ED008637A0 /* CreateGroupViewController.swift in Sources */,

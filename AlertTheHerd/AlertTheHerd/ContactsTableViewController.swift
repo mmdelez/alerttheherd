@@ -7,9 +7,9 @@
 //
 
 //What still needs to be added:
-//Select contact and pass data to next view
-//Don't allow empty fields
-//Check if phone number is 10 digits and put it in this format: (xxx) xxx-xxxx
+//if not valid name/number add message to alert
+//add existing name/number to update alert
+//alphabetize the contacts
 
 import UIKit
 import CoreData
@@ -143,9 +143,18 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    //updates contact
     func updateContact(index: Int, newName: String, newNumber: String){
+        //get shared instance of delegate
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
+        //update contact with name and number
+        people[index].setValue(newName, forKey: "name")
+        people[index].setValue(newNumber, forKey: "phoneNumber")
+        
+        //print("\(people[index])") //prints out person clicked on
+        
+        //save the updated contact
         appDelegate.saveContext()
     }
     
@@ -184,6 +193,8 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    //called when a cell is clicked on
+    //this shit kinda works, pops up empty alert box when selected
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -192,15 +203,47 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         let updateAction = UIAlertAction(title: "Update", style: .Default){(_) in
             let nameTextField = alert.textFields![0]
             let numberTextField = alert.textFields![1]
-            self.updateContact(indexPath.row, newName: nameTextField.text!, newNumber: numberTextField.text!)
+            
+            //send the input to validateContact()
+            let name = nameTextField.text!
+            let number = numberTextField.text!
+            if self.validateContact(name, number: number){
+                //if info is validated, send to updateContact()
+                self.updateContact(indexPath.row, newName: nameTextField.text!, newNumber: numberTextField.text!)
+            }
+            else{
+                //if info is incorrect, pop up the alert again
+                //let alert = UIAlertController(title: "Add Contact", message: "Incorrect Informantion Provided", preferredStyle: .Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
+            
             tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction) -> Void in
         }
         
-        alert.addTextFieldWithConfigurationHandler(nil)
-        alert.addTextFieldWithConfigurationHandler(nil)
+        alert.addTextFieldWithConfigurationHandler {
+            (textField: UITextField) -> Void in
+            
+
+            //grey placeholder text
+            textField.placeholder = "Persons name should go here"
+            //turn off autocorrect
+            textField.autocorrectionType = .No
+            
+        }
+        
+        alert.addTextFieldWithConfigurationHandler {
+            (textField: UITextField) -> Void in
+            
+            //THIS WILL CAUSE A WARNING MESSAGE IN THE DEBUG CONSOLE. Just ignore it :)
+            textField.keyboardType = UIKeyboardType.NumberPad
+            //grey placeholder text
+            textField.placeholder = "Persons number should go here"
+            
+        }
         
         alert.addAction(updateAction)
         alert.addAction(cancelAction)
