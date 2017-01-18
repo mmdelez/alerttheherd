@@ -21,13 +21,13 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
     //Create mutable array for contacts
     var people = [NSManagedObject]() //NSManagedObject represents a single object stored in Core Data—you must use it to create, edit, save and delete from your Core Data persistent store
     
-    @IBAction func createContact(sender: AnyObject) { //created from storyboard, pops up "Add Contact" window when you click the "Add" button on the top left
+    @IBAction func createContact(_ sender: AnyObject) { //created from storyboard, pops up "Add Contact" window when you click the "Add" button on the top left
         
         //set up alert message and style as a pop up alert
-        let alert = UIAlertController(title: "Add Contact", message: "", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Add Contact", message: "", preferredStyle: .alert)
         
         //creates a "save" button
-        let saveAction = UIAlertAction(title: "Save", style: .Default, handler: { (action:UIAlertAction) -> Void in
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (action:UIAlertAction) -> Void in
             
             //grab the input from each field
             let nameTextField = alert.textFields![0] as UITextField
@@ -43,7 +43,7 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
             else{
                 //if info is incorrect, pop up the alert again
                 //let alert = UIAlertController(title: "Add Contact", message: "Incorrect Informantion Provided", preferredStyle: .Alert)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
             }
             
             //reload the list so new addition shows up
@@ -51,26 +51,26 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         })
         
         //creates a "cancel" button. Alert is dismissed if clicked
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction) -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action: UIAlertAction) -> Void in
         }
         
         //this allows you to make an input field within the alert
-        alert.addTextFieldWithConfigurationHandler {
+        alert.addTextField {
             (textField: UITextField) -> Void in
             
             //grey placeholder text
             textField.placeholder = "Full Name"
             //turn off autocorrect
-            textField.autocorrectionType = .No
+            textField.autocorrectionType = .no
         
         }
         
         //we need two fields so we must make two of these
-        alert.addTextFieldWithConfigurationHandler {
+        alert.addTextField {
             (textField: UITextField) -> Void in
             
             //THIS WILL CAUSE A WARNING MESSAGE IN THE DEBUG CONSOLE. Just ignore it :)
-            textField.keyboardType = UIKeyboardType.NumberPad
+            textField.keyboardType = UIKeyboardType.numberPad
             //grey placeholder text
             textField.placeholder = "Phone Number"
             
@@ -81,7 +81,7 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         alert.addAction(cancelAction)
         
         //present the alert to the user
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
 
     }
     
@@ -93,7 +93,7 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
     }
     
     //checks if information entered is valid
-    func validateContact(name: String, number: String) -> Bool{
+    func validateContact(_ name: String, number: String) -> Bool{
         //checks for empty name
         if name == ""{
             print("No name entered")
@@ -103,7 +103,7 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         //checks if phone number is 10 digits long
         let number_regex = "\\d{10}"
         let numberTest = NSPredicate(format: "SELF MATCHES %@", number_regex)
-        let result = numberTest.evaluateWithObject(number)
+        let result = numberTest.evaluate(with: number)
         if result == true{
             print("This is a valid number")
             return true
@@ -114,16 +114,16 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    func saveContact(name: String, number: String){
+    func saveContact(_ name: String, number: String){
         
         //get shared instance of app delegate and the Managed Object Context
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
         //select the correct Entity from the data model
-        let entity = NSEntityDescription.entityForName("Person", inManagedObjectContext: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedContext)
         
-        let person = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        let person = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         //set values that were given as input to the function
         person.setValue(name, forKey: "name")
@@ -143,69 +143,69 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    func updateContact(index: Int, newName: String, newNumber: String){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    func updateContact(_ index: Int, newName: String, newNumber: String){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         appDelegate.saveContext()
     }
     
     
     // Simply checks how many people are in the array so it knows how many rows to make
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return people.count
     }
     
     //This function grabs the correct info from the Person object
     //THIS DOES NOT DISPLAY THE INFO
     //That is handled by viewWillAppear
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         let person = people[indexPath.row]
-        cell!.textLabel?.text = person.valueForKey("name") as? String //main text of label (name)
-        cell!.detailTextLabel?.text = person.valueForKey("phoneNumber") as? String //subtitle text of label (phone number)
+        cell!.textLabel?.text = person.value(forKey: "name") as? String //main text of label (name)
+        cell!.detailTextLabel?.text = person.value(forKey: "phoneNumber") as? String //subtitle text of label (phone number)
         return cell!
     }
     
     //This function handles the multiple editing styles lists can have
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete{ //check if editing style is "Delete"
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{ //check if editing style is "Delete"
             
             //get shared instance of app delegate and the Managed Object Context
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.managedObjectContext
             
             //delete the object and save the context
-            managedContext.deleteObject(people[indexPath.row])
+            managedContext.delete(people[indexPath.row])
             appDelegate.saveContext()
             
             //remove object from people array so it doesn't appear in the list anymore
-            people.removeAtIndex(indexPath.row)
+            people.remove(at: indexPath.row)
             tableView.reloadData()
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath){
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let alert = UIAlertController(title: "Update", message: "Update stuff", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Update", message: "Update stuff", preferredStyle: .alert)
         
-        let updateAction = UIAlertAction(title: "Update", style: .Default){(_) in
+        let updateAction = UIAlertAction(title: "Update", style: .default){(_) in
             let nameTextField = alert.textFields![0]
             let numberTextField = alert.textFields![1]
             self.updateContact(indexPath.row, newName: nameTextField.text!, newNumber: numberTextField.text!)
             tableView.reloadData()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (action: UIAlertAction) -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action: UIAlertAction) -> Void in
         }
         
-        alert.addTextFieldWithConfigurationHandler(nil)
-        alert.addTextFieldWithConfigurationHandler(nil)
+        alert.addTextField(configurationHandler: nil)
+        alert.addTextField(configurationHandler: nil)
         
         alert.addAction(updateAction)
         alert.addAction(cancelAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -215,19 +215,19 @@ class ContactsTableViewController: UIViewController, UITableViewDataSource {
     }
 
     //This function retrieves the data from the Person object in order to display it in the list
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         //get shared instance of app delegate and the Managed Object Context
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
         //create fetch request
-        let fetchRequest = NSFetchRequest(entityName: "Person")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         
         //try to fetch results
         do{
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let results = try managedContext.fetch(fetchRequest)
             people = results as! [NSManagedObject]
         }
         

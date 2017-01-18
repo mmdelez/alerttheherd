@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Coredata
 
-class TemplatesTableViewController: UITableViewController {
+class TemplatesTableViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()

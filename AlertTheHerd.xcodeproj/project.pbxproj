@@ -227,15 +227,18 @@
 					4C0B622C1D66D5BF008637A0 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = UV6WB63WGV;
+						LastSwiftMigration = 0820;
 					};
 					4C0B62421D66D5C0008637A0 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = UV6WB63WGV;
+						LastSwiftMigration = 0820;
 						TestTargetID = 4C0B622C1D66D5BF008637A0;
 					};
 					4C0B624D1D66D5C0008637A0 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = UV6WB63WGV;
+						LastSwiftMigration = 0820;
 						TestTargetID = 4C0B622C1D66D5BF008637A0;
 					};
 				};
@@ -450,6 +453,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -461,6 +465,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -472,6 +477,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertTheHerd.app/AlertTheHerd";
 			};
 			name = Debug;
@@ -484,6 +490,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerdTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertTheHerd.app/AlertTheHerd";
 			};
 			name = Release;
@@ -495,6 +502,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerdUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = AlertTheHerd;
 			};
 			name = Debug;
@@ -506,6 +514,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.delez.AlertTheHerdUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = AlertTheHerd;
 			};
 			name = Release;
